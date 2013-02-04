@@ -11,6 +11,12 @@
   :min-lein-version "2.0.0"
   :main main
   :test-paths ["test"]
-  :plugins [[lein-swank "1.4.4"]]
+  :plugins [[lein-swank "1.4.4"]
+            [lein-cljsbuild "0.3.0"]]
+  :cljsbuild {
+    :builds [{:source-paths ["src-cljs"]
+              :compiler {:output-to "static/main.js"
+                         :optimizations :whitespace
+                         :pretty-print true}}]}
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"})
