@@ -1,14 +1,6 @@
-# chartroom, http-kit's websocket demo
+# chartroom, websocket demo
 
-
-[http-kit](https://github.com/http-kit/http-kit) support websocket by
-
-* `if-ws-request`
-* `on-mesg`
-* `on-close`
-* `send-mesg`
-* `close-conn`
-
+http-kit's websocket support is documented on [http-kit.org](http://http-kit.org/server.html#channel)
 
 
 ### How to run it

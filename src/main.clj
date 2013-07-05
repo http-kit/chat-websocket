@@ -35,16 +35,16 @@
              (ref-set all-msgs all-msgs*))))))
     (doseq [client (keys @clients)]
       ;; send all, client will filter them
-      (send-mesg client (json-str @all-msgs)))))
+      (send! client (json-str @all-msgs)))))
 
 (defn chat-handler [req]
-  (when-ws-request req con
-                   (info con "connected")
-                   (swap! clients assoc con true)
-                   (on-mesg con #'mesg-received)
-                   (on-close con (fn [status]
-                                   (swap! clients dissoc con)
-                                   (info con "closed, status" status)))))
+  (with-channel req channel
+    (info channel "connected")
+    (swap! clients assoc channel true)
+    (on-receive channel #'mesg-received)
+    (on-close channel (fn [status]
+                        (swap! clients dissoc channel)
+                        (info channel "closed, status" status)))))
 
 (defroutes chartrootm
   (GET "/ws" []  chat-handler)
