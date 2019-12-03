@@ -7,6 +7,7 @@ CP="classes:$(lein classpath):examples/websocket/"
 java -cp "$CP" \
     clojure.main -m main
 
+java -cp `lein classpath` clojure.main -e "(do (set! *warn-on-reflection* true) (require 'qbits.alia.async))"
 
 
     # -Xdebug -Xrunjdwp:transport=dt_socket,address=9092,server=y,suspend=n \

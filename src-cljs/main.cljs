@@ -3,7 +3,7 @@
 (def i (js/$ "#i"))
 (def history (js/$ "#history"))
 
-(defn- now [] 
+(defn- now []
   (quot (.getTime (js/Date.)) 1000))
 
 (def max-id (atom 0))
@@ -13,7 +13,7 @@
         author (str "<span class=\"author\">" (.-author msg) "</span>: ")]
     (.append history (str "<li>" author (.-msg msg) t "</li>"))))
 
-(def conn 
+(def conn
   (js/WebSocket. "ws://127.0.0.1:9899/ws"))
 
 (set! (.-onopen conn)
@@ -21,7 +21,7 @@
     (.send conn
       (.stringify js/JSON (js-obj "command" "getall")))))
 
-(set! (.-onerror conn) 
+(set! (.-onerror conn)
   (fn []
     (js/alert "error")
     (.log js/console js/arguments)))
@@ -45,6 +45,6 @@
 
 (.click (js/$ "#send") send-to-server)
 
-(.keyup (.focus i) 
+(.keyup (.focus i)
   (fn [e]
     (if (= (.-which e) 13) (send-to-server))))

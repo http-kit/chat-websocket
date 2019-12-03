@@ -4,9 +4,9 @@
         [ring.middleware.file-info :only [wrap-file-info]]
         [clojure.tools.logging :only [info]]
         [clojure.data.json :only [json-str read-json]]
+        [ring.middleware.defaults :refer :all]
         (compojure [core :only [defroutes GET POST]]
                    [route :only [files not-found]]
-                   [handler :only [site]]
                    [route :only [not-found]])))
 
 (defn- now [] (quot (System/currentTimeMillis) 1000))
@@ -60,5 +60,5 @@
       resp)))
 
 (defn -main [& args]
-  (run-server (-> #'chartrootm site wrap-request-logging) {:port 9899})
+  (run-server (-> #'chartrootm (wrap-defaults site-defaults) wrap-request-logging) {:port 9899})
   (info "server started. http://127.0.0.1:9899"))
